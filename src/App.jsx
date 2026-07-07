@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { 
+import {
   Github, Linkedin, Twitter
 } from 'lucide-react';
 import Header from './components/Header';
 import Modal from './components/Modal';
 import HomeView from './components/HomeView';
 import SkillsView from './components/SkillsView';
-import ProjectsView from './components/ProjectsView';
+import ProjectsSection from './components/Projects/ProjectsSection';
 import ContactView from './components/ContactView';
-import { SERVICES, PROJECTS } from './data';
+import { SERVICES, projects } from './data';
 
 export default function App() {
   // Modal tracking
@@ -36,12 +36,7 @@ export default function App() {
     setSelectedProject(proj);
   };
 
-  const handleOpenProjectModal = (projId) => {
-    const proj = PROJECTS.find(p => p.id === projId);
-    if (proj) {
-      handleOpenModal('project', proj);
-    }
-  };
+
 
   const handleNavigatePage = (pageId) => {
     setCurrentPage(pageId);
@@ -49,11 +44,11 @@ export default function App() {
 
   return (
     <div className="relative min-h-screen bg-white text-neutral-900 font-sans selection:bg-orange-100 selection:text-orange-900 overflow-x-hidden flex flex-col justify-between">
-      
+
       {/* Fixed Header */}
-      <Header 
-        onOpenModal={(type) => handleOpenModal(type)} 
-        activeSection={currentPage} 
+      <Header
+        onOpenModal={(type) => handleOpenModal(type)}
+        activeSection={currentPage}
         onChangePage={handleNavigatePage}
       />
 
@@ -61,32 +56,31 @@ export default function App() {
       <main className="pt-24 sm:pt-28 flex-1">
         <AnimatePresence mode="wait">
           {currentPage === 'home' && (
-            <HomeView 
+            <HomeView
               key="home"
               services={SERVICES}
-              projects={PROJECTS}
+              projects={projects}
               onOpenModal={handleOpenModal}
               onScrollToSegment={handleNavigatePage}
             />
           )}
 
           {currentPage === 'skills' && (
-            <SkillsView 
+            <SkillsView
               key="skills"
               onOpenModal={handleOpenModal}
             />
           )}
 
-          {currentPage === 'projects' && (
-            <ProjectsView 
+          {currentPage === "projects" && (
+            <ProjectsSection
               key="projects"
-              onOpenModal={handleOpenModal}
-              onOpenProjectModal={handleOpenProjectModal}
+              projects={projects}
             />
           )}
 
           {currentPage === 'contact' && (
-            <ContactView 
+            <ContactView
               key="contact"
               onOpenModal={handleOpenModal}
             />
@@ -97,7 +91,7 @@ export default function App() {
       {/* 5. Main Unified Footer always visible */}
       <footer className="border-t border-neutral-150 bg-white py-12 md:py-16 mt-20 select-none">
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-          
+
           <div>
             <span className="text-lg font-display font-black tracking-tighter text-neutral-900 block mb-2 font-sans">
               HARSHA<span className="text-[#FF6000]">.</span>K P
@@ -108,7 +102,7 @@ export default function App() {
           </div>
 
           <div className="flex flex-col md:items-end gap-6 font-sans">
-            
+
             {/* Social link tracks */}
             <div className="flex flex-wrap gap-4 text-xs font-semibold text-neutral-500">
               <a href="#github" className="hover:text-orange-600 flex items-center gap-1.5 transition-colors">
@@ -123,7 +117,7 @@ export default function App() {
             </div>
 
             <div className="text-[11px] text-neutral-400 md:text-right">
-              <div>© 2024 HARSHA.K P. All rights reserved. Built with React & Tailwind CSS.</div>
+              <div>© 2026 HARSHA.K P. All rights reserved. Built with React & Tailwind CSS.</div>
               <div className="flex gap-3 mt-1.5 md:justify-end text-[10px] uppercase font-bold tracking-wider text-neutral-400">
                 <a href="#privacy" className="hover:text-neutral-600">Privacy Policy</a>
                 <span>•</span>

@@ -87,7 +87,7 @@ export default function Header({ onOpenModal, activeSection, onChangePage }) {
               onClick={() => onOpenModal('contact')}
               className="hidden sm:inline-flex items-center gap-1.5 bg-[#FF6000] text-white hover:bg-orange-700 font-display font-bold text-xs tracking-wide px-5 py-2.5 rounded-xl border border-[#FF6000] hover:border-orange-750 transition-all duration-205 shadow-md shadow-orange-500/10 active:scale-98 cursor-pointer"
             >
-              Hire Me
+              Let's connect
               <ArrowUpRight className="h-3.5 w-3.5" />
             </button>
 

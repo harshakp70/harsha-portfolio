@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { X, Calendar, Clock, Sparkles, Send, Download, ExternalLink, Code2, Check, ArrowLeft, ArrowRight, Briefcase, GraduationCap, Award, CheckCircle } from 'lucide-react';
-import { PROJECTS } from '../data';
+import { projects } from '../data';
 import emailjs from "@emailjs/browser";
+import ResumeModal from './Resume/ResumeModal';
 
 export default function Modal({ type, project, onClose, onSwitchProject, openContactModal }) {
   // Contact Form State
@@ -20,36 +21,36 @@ export default function Modal({ type, project, onClose, onSwitchProject, openCon
   const [activeCodeTab, setActiveCodeTab] = useState(0);
 
   // Handlers
- const handleContactSubmit = async (e) => {
-  e.preventDefault();
+  const handleContactSubmit = async (e) => {
+    e.preventDefault();
 
-  setSubmitting(true);
+    setSubmitting(true);
 
-  try {
-    const result = await emailjs.send(
-      "service_6qtbofq",
-      "template_r8t9v3g",
-      {
-        name: contactForm.name,
-        email: contactForm.email,
-        project: contactForm.projectType,
-       budget: contactForm.budget,
-        message: contactForm.message,
-      },
-      "QptqINc9lvM4pPT1b"
-    );
+    try {
+      const result = await emailjs.send(
+        "service_6qtbofq",
+        "template_r8t9v3g",
+        {
+          name: contactForm.name,
+          email: contactForm.email,
+          project: contactForm.projectType,
+          budget: contactForm.budget,
+          message: contactForm.message,
+        },
+        "QptqINc9lvM4pPT1b"
+      );
 
-    console.log(result);
+      console.log(result);
 
-    setSubmitting(false);
-    setIsSubmitSuccess(true);
-  } catch (error) {
-    console.error(error);
+      setSubmitting(false);
+      setIsSubmitSuccess(true);
+    } catch (error) {
+      console.error(error);
 
-    setSubmitting(false);
-    alert("Failed to send message");
-  }
-};
+      setSubmitting(false);
+      alert("Failed to send message");
+    }
+  };
 
   const handleScheduleSubmit = (e) => {
     e.preventDefault();
@@ -93,14 +94,14 @@ CERTIFICATIONS:
     document.body.removeChild(element);
   };
 
-  const currentProjectIndex = project ? PROJECTS.findIndex(p => p.id === project.id) : -1;
+  const currentProjectIndex = project ? projects.findIndex(p => p.id === project.id) : -1;
 
   const navigateProject = (dir) => {
     if (!project || currentProjectIndex === -1) return;
     let nextIndex = dir === 'next' ? currentProjectIndex + 1 : currentProjectIndex - 1;
-    if (nextIndex >= PROJECTS.length) nextIndex = 0;
-    if (nextIndex < 0) nextIndex = PROJECTS.length - 1;
-    onSwitchProject(PROJECTS[nextIndex]);
+    if (nextIndex >= projects.length) nextIndex = 0;
+    if (nextIndex < 0) nextIndex = projects.length - 1;
+    onSwitchProject(projects[nextIndex]);
     setActiveCodeTab(0);
   };
 
@@ -198,7 +199,7 @@ CERTIFICATIONS:
 
           {/* Dynamic Content */}
           <div className="flex-1 p-6 sm:p-8">
-            
+
             {/* 1. Contact Form Modal */}
             {type === 'contact' && (
               <div id="contact-modal-content">
@@ -246,10 +247,13 @@ CERTIFICATIONS:
                           onChange={(e) => setContactForm({ ...contactForm, projectType: e.target.value })}
                           className="w-full rounded-xl border border-neutral-200 px-4 py-3 text-sm text-neutral-900 focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500 transition-colors bg-neutral-25/50 font-sans"
                         >
-                          <option>Web Development (React / Next.js)</option>
-                          <option>Mobile App (React Native / Expo)</option>
-                          <option>Full-stack Cross-platform Suite</option>
-                          <option>Hourly Consulting / Advisory</option>
+                          <option>MERN Stack Web Application</option>
+                          <option>React Native Mobile App</option>
+                          <option>Portfolio Website</option>
+                          <option>Bug Fix / Feature Development</option>
+                          <option>Full-Time Opportunity</option>
+                          <option>Internship Opportunity</option>
+                          <option>Other</option>
                         </select>
                       </div>
                       <div>
@@ -262,10 +266,11 @@ CERTIFICATIONS:
                           onChange={(e) => setContactForm({ ...contactForm, budget: e.target.value })}
                           className="w-full rounded-xl border border-neutral-200 px-4 py-3 text-sm text-neutral-900 focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500 transition-colors bg-neutral-25/50 font-sans"
                         >
-                          <option>$2.5k - $5k</option>
-                          <option>$5k - $10k</option>
-                          <option>$10k - $25k</option>
-                          <option>$25k+</option>
+                          <option>Full-Time Job</option>
+                          <option>Internship</option>
+                          <option>Freelance Project</option>
+                          <option>Project Discussion</option>
+                          <option>Other</option>
                         </select>
                       </div>
                     </div>
@@ -280,7 +285,7 @@ CERTIFICATIONS:
                         rows={4}
                         value={contactForm.message}
                         onChange={(e) => setContactForm({ ...contactForm, message: e.target.value })}
-                        placeholder="I want to build a real-time portfolio management portal with dynamic data visualization tools..."
+                        placeholder="Tell me about your project, opportunity, or idea..."
                         className="w-full rounded-xl border border-neutral-200 px-4 py-3 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500 transition-colors bg-neutral-25/50 resize-none font-sans"
                       />
                     </div>
@@ -309,7 +314,11 @@ CERTIFICATIONS:
                       Awesome, Message Sent!
                     </h4>
                     <p className="text-neutral-500 text-sm leading-relaxed mb-6">
-                      Hi, <strong>{contactForm.name}</strong>! Thank you for reaching out. I've received your request about <strong>{contactForm.projectType}</strong> and will read through it, responding at <strong>{contactForm.email}</strong> within 24 hours.
+                      Thank you <strong>{contactForm.name}</strong>!
+
+                      Your message has been received successfully.
+
+                      I'll review your message and get back to you as soon as possible.
                     </p>
                     <div className="rounded-xl bg-neutral-50 border border-neutral-150 p-4 text-left text-xs text-neutral-600 mb-8 font-mono">
                       <div className="flex justify-between py-1 border-b border-neutral-100">
@@ -370,17 +379,16 @@ CERTIFICATIONS:
                                 key={i}
                                 disabled={!cd.available || isPast}
                                 onClick={() => setSelectedDate(`2026-06-${cd.day}`)}
-                                className={`text-xs py-2 rounded-lg font-medium transition-all cursor-pointer relative flex flex-col items-center justify-center ${
-                                  !cd.available || isPast
-                                    ? 'text-neutral-300 pointer-events-none'
-                                    : cd.isToday
-                                      ? isSelected
-                                        ? 'bg-orange-600 text-white shadow-md'
-                                        : 'border border-orange-500 text-orange-600 font-bold bg-orange-50/40 hover:bg-orange-50'
-                                      : isSelected
-                                        ? 'bg-orange-600 text-white shadow-md shadow-orange-500/10'
-                                        : 'bg-white hover:bg-neutral-100 text-neutral-800 shadow-sm border border-neutral-200/50'
-                                }`}
+                                className={`text-xs py-2 rounded-lg font-medium transition-all cursor-pointer relative flex flex-col items-center justify-center ${!cd.available || isPast
+                                  ? 'text-neutral-300 pointer-events-none'
+                                  : cd.isToday
+                                    ? isSelected
+                                      ? 'bg-orange-600 text-white shadow-md'
+                                      : 'border border-orange-500 text-orange-600 font-bold bg-orange-50/40 hover:bg-orange-50'
+                                    : isSelected
+                                      ? 'bg-orange-600 text-white shadow-md shadow-orange-500/10'
+                                      : 'bg-white hover:bg-neutral-100 text-neutral-800 shadow-sm border border-neutral-200/50'
+                                  }`}
                               >
                                 <span>{cd.day}</span>
                                 {cd.isToday && (
@@ -413,11 +421,10 @@ CERTIFICATIONS:
                                   <button
                                     key={idx}
                                     onClick={() => setSelectedTime(time)}
-                                    className={`w-full flex items-center justify-between px-4 py-3 rounded-lg text-xs font-semibold cursor-pointer border transition-all ${
-                                      isSelected
-                                        ? 'bg-orange-600 text-white border-orange-600 shadow-md shadow-orange-500/10'
-                                        : 'bg-white text-neutral-700 border-neutral-200 hover:border-neutral-300 hover:bg-neutral-50'
-                                    }`}
+                                    className={`w-full flex items-center justify-between px-4 py-3 rounded-lg text-xs font-semibold cursor-pointer border transition-all ${isSelected
+                                      ? 'bg-orange-600 text-white border-orange-600 shadow-md shadow-orange-500/10'
+                                      : 'bg-white text-neutral-700 border-neutral-200 hover:border-neutral-300 hover:bg-neutral-50'
+                                      }`}
                                   >
                                     <div className="flex items-center gap-2">
                                       <Clock className="h-3.5 w-3.5 opacity-80" />
@@ -580,188 +587,16 @@ CERTIFICATIONS:
             )}
 
             {/* 3. Resume Modal */}
-            {type === 'resume' && (
-              <div id="resume-modal-content" className="space-y-8">
-                {/* Print and Download Toolbar */}
-                <div className="flex flex-wrap justify-between items-center gap-3 bg-neutral-50 rounded-xl p-3 border border-neutral-150">
-                  <span className="text-xs text-neutral-500 font-mono flex items-center gap-1.5 pl-1">
-                    <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-                    Interactive markup layout for printable reference review
-                  </span>
-                  <div className="flex gap-2">
-                    <button
-                      onClick={() => window.print()}
-                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-neutral-200 bg-white hover:bg-neutral-50 text-xs font-semibold text-neutral-700 transition-all cursor-pointer shadow-sm"
-                    >
-                      Print Resume
-                    </button>
-                    <button
-                      id="resume-download-btn"
-                      onClick={handleDownloadResume}
-                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#FF6000] hover:bg-orange-700 text-xs font-semibold text-white transition-all cursor-pointer shadow-sm"
-                    >
-                      <Download className="h-3.5 w-3.5" />
-                      Download Resume
-                    </button>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                  {/* Left Column: Contact and Skills */}
-                  <div className="space-y-6 md:border-r md:border-neutral-100 md:pr-6">
-                    <div>
-                      <h4 className="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-3 font-mono">
-                        Contact Info
-                      </h4>
-                      <ul className="space-y-2 text-xs text-neutral-700 font-mono">
-                        <li>
-                          <span className="text-neutral-400">Email:</span>
-                          <span className="block font-sans font-medium text-neutral-900">harsharenjith70@gmail.com</span>
-                        </li>
-                        <li>
-                          <span className="text-neutral-400">GitHub:</span>
-                          <a href="#github" className="block text-orange-600 font-sans font-medium hover:underline">github.com/developer-harsha</a>
-                        </li>
-                        <li>
-                          <span className="text-neutral-400">LinkedIn:</span>
-                          <a href="#linkedin" className="block text-orange-600 font-sans font-medium hover:underline">linkedin.com/in/harsharenjith</a>
-                        </li>
-                        <li>
-                          <span className="text-neutral-400">Location:</span>
-                          <span className="block font-sans font-medium text-neutral-900">San Francisco, CA (Remote Friendly)</span>
-                        </li>
-                      </ul>
-                    </div>
-
-                    <div>
-                      <h4 className="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-3 font-mono">
-                        Web Competencies
-                      </h4>
-                      <div className="flex flex-wrap gap-1.5">
-                        {['React.js', 'Next.js', 'Vite', 'Tailwind CSS', 'Redux', 'Zustand', 'TypeScript', 'Jest', 'Webpack', 'CSS Modules'].map((s, i) => (
-                          <span key={i} className="text-[10px] font-mono font-medium bg-neutral-100 text-neutral-800 px-2 py-0.5 rounded">
-                            {s}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div>
-                      <h4 className="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-3 font-mono">
-                        Mobile Competencies
-                      </h4>
-                      <div className="flex flex-wrap gap-1.5">
-                        {['React Native', 'Expo SDK', 'Reanimated 3', 'Skia graphics', 'Firebase Core', 'iOS Bridging', 'Android Gradle', 'WatermelonDB'].map((s, i) => (
-                          <span key={i} className="text-[10px] font-mono font-medium bg-orange-50 text-orange-800 px-2 py-0.5 rounded">
-                            {s}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="pt-2">
-                      <h4 className="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2 font-mono">
-                        Sectors
-                      </h4>
-                      <ul className="text-xs text-neutral-700 space-y-1.5 font-sans">
-                        <li className="flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-emerald-500" /> Decentralized Finance (DeFi)</li>
-                        <li className="flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-emerald-500" /> Headless Commerce</li>
-                        <li className="flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-emerald-500" /> Core Platform Tooling</li>
-                      </ul>
-                    </div>
-                  </div>
-
-                  {/* Right Column: Experience and Education */}
-                  <div className="md:col-span-2 space-y-6">
-                    <div>
-                      <h4 className="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-5 font-mono flex items-center gap-2">
-                        <Briefcase className="h-4 w-4" /> Professional Experience
-                      </h4>
-                      <div className="space-y-6 font-sans">
-                        {/* Job 1 */}
-                        <div className="relative pl-5 border-l-2 border-orange-500/30">
-                          <div className="absolute -left-[6px] top-1.5 h-2.5 w-2.5 rounded-full bg-orange-600 ring-4 ring-white" />
-                          <div className="flex flex-wrap justify-between items-baseline gap-2 mb-1.5">
-                            <h5 className="font-display font-bold text-neutral-900 text-sm">
-                              Senior Web & Mobile Engineer
-                            </h5>
-                            <span className="text-[10px] text-neutral-400 font-mono">
-                              2022 - PRESENT
-                            </span>
-                          </div>
-                          <span className="block text-xs font-semibold text-orange-600 mb-2 font-mono">
-                            Vanguard Retail Commerce Systems
-                          </span>
-                          <p className="text-xs text-neutral-500 leading-relaxed">
-                            Built, managed and optimized custom React and Next.js digital store architectures on Shopify Hydrogen, driving over $45M in yearly transactions. Reduced aggregate LCP metric to 0.85s. Developed React Native/Expo logistics companion apps resulting in a 40% uptick in fulfillment speeds.
-                          </p>
-                        </div>
-
-                        {/* Job 2 */}
-                        <div className="relative pl-5 border-l-2 border-neutral-100">
-                          <div className="absolute -left-[6px] top-1.5 h-2.5 w-2.5 rounded-full bg-neutral-300 ring-4 ring-white" />
-                          <div className="flex flex-wrap justify-between items-baseline gap-2 mb-1.5">
-                            <h5 className="font-display font-bold text-neutral-900 text-sm">
-                              Web Specialist
-                            </h5>
-                            <span className="text-[10px] text-neutral-400 font-mono">
-                              2020 - 2022
-                            </span>
-                          </div>
-                          <span className="block text-xs font-semibold text-neutral-600 mb-2 font-mono">
-                            Lumina Analytics & SaaS Platforms
-                          </span>
-                          <p className="text-xs text-neutral-500 leading-relaxed">
-                            Pioneered vector coordinate dashboard integrations plotting real-time telemetry pools using D3 graphs and high-frequency WebSocket updates. Standardized responsive layouts via Tailwind CSS across unified multi-tenant customer views.
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div>
-                      <h4 className="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-4 font-mono flex items-center gap-2">
-                        <GraduationCap className="h-4 w-4" /> Education
-                      </h4>
-                      <div className="pl-5 border-l-2 border-neutral-100 relative font-sans">
-                        <div className="absolute -left-[6px] top-1 h-2.5 w-2.5 rounded-full bg-neutral-200 ring-4 ring-white" />
-                        <div className="flex justify-between items-baseline gap-2 mb-1">
-                          <h5 className="font-display font-semibold text-neutral-900 text-xs">
-                            B.S. in Computer Science
-                          </h5>
-                          <span className="text-[10px] text-neutral-400 font-mono">
-                            2016 - 2020
-                          </span>
-                        </div>
-                        <span className="text-[11px] text-neutral-500">
-                          Tech Institute of Engineering • High Honors Graduate
-                        </span>
-                      </div>
-                    </div>
-
-                    <div>
-                      <h4 className="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-4 font-mono flex items-center gap-2">
-                        <Award className="h-4 w-4" /> Core Technical Philosophies
-                      </h4>
-                      <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-neutral-500 font-sans">
-                        <li className="flex gap-2 items-start">
-                          <div className="mt-0.5 rounded bg-orange-50 text-orange-600 p-0.5"><Check className="h-3 w-3" /></div>
-                          <span><strong>Semantic DOM Integrity</strong>: Pixel accuracy matching Figma guidelines perfectly across viewport densities.</span>
-                        </li>
-                        <li className="flex gap-2 items-start">
-                          <div className="mt-0.5 rounded bg-orange-50 text-orange-600 p-0.5"><Check className="h-3 w-3" /></div>
-                          <span><strong>Performance First</strong>: Keeping state loops clean, preventing visual layout shifts, prioritizing lazy caches.</span>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
+          {type === "resume" && (
+  <ResumeModal
+    onClose={onClose}
+  />
+)}
 
             {/* 4. Project Details Showroom */}
             {type === 'project' && project && (
               <div id="project-modal-content" className="space-y-8">
-                
+
                 {/* Project Header Panel */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
                   <div className="md:col-span-2">
