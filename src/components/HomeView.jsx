@@ -210,7 +210,7 @@ export default function HomeView({
 
  <ProjectsSection
   projects={projects}
- onOpenModal={onOpenModal}
+  onOpenModal={(project) => onOpenModal("project", project)}
 />
 
       {/* 4. Bottom Contact block banner */}

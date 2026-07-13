@@ -4,10 +4,11 @@ import { X, Calendar, Clock, Sparkles, Send, Download, ExternalLink, Code2, Chec
 import { projects } from '../data';
 import emailjs from "@emailjs/browser";
 import ResumeModal from './Resume/ResumeModal';
+import ProjectModal from '../components/Projects/ProjectModal'
 
 export default function Modal({ type, project, onClose, onSwitchProject, openContactModal }) {
   // Contact Form State
-  const [contactForm, setContactForm] = useState({ name: '', email: '', projectType: 'Web Development', budget: '$5k - $10k', message: '' });
+  const [contactForm, setContactForm] = useState({ name: '', email: '', projectType: 'Web Development', opportunity: 'Full-TIme Job', message: '' });
   const [isSubmitSuccess, setIsSubmitSuccess] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
@@ -34,7 +35,7 @@ export default function Modal({ type, project, onClose, onSwitchProject, openCon
           name: contactForm.name,
           email: contactForm.email,
           project: contactForm.projectType,
-          budget: contactForm.budget,
+          opportunity: contactForm.opportunity,
           message: contactForm.message,
         },
         "QptqINc9lvM4pPT1b"
@@ -57,53 +58,11 @@ export default function Modal({ type, project, onClose, onSwitchProject, openCon
     setScheduleStep(3);
   };
 
-  const handleDownloadResume = () => {
-    // Generate text-based resume fallback download
-    const rawResumeText = `HARSHA.K P - Portfolio Resume
-Architecting the future of web and mobile through React expertise.
-
-CONTACT:
-Email: harsharenjith70@gmail.com
-Website: https://harsharenjith.dev.helper/
-
-PROFESSIONAL EXPERIENCE:
-1. Lead Web & Mobile Developer - Vanguard Retail (2022 - Present)
-   - Built serverless high-performing checkout routes saving millions.
-   - Configured custom bundlers reducing LCP from 2.6s to 0.85s.
-2. Web Applications Engineer - Lumina Labs (2020 - 2022)
-   - Spearheaded enterprise analytics pipeline rendering millions of nodes in D3.
-   - Refactored state synchronization using React Query.
-
-SKILLS:
-- Web Specialist: React, Next.js, Tailwind CSS v4, TypeScript, SEO, Webpack, .
-- Mobile Expert: React Native, Expo, Reanimated 3, Firebase, Android Studio.
-
-EDUCATION:
-- B.S. in Computer Science And Technology (2013-2016)
-
-CERTIFICATIONS:
-- Advanced React & Next Solutions Architect
-- Google Cloud - Mobile Deployment Associate
-`;
-    const element = document.createElement("a");
-    const file = new Blob([rawResumeText], { type: 'text/plain' });
-    element.href = URL.createObjectURL(file);
-    element.download = "Developer_Resume.txt";
-    document.body.appendChild(element);
-    element.click();
-    document.body.removeChild(element);
-  };
+ 
 
   const currentProjectIndex = project ? projects.findIndex(p => p.id === project.id) : -1;
 
-  const navigateProject = (dir) => {
-    if (!project || currentProjectIndex === -1) return;
-    let nextIndex = dir === 'next' ? currentProjectIndex + 1 : currentProjectIndex - 1;
-    if (nextIndex >= projects.length) nextIndex = 0;
-    if (nextIndex < 0) nextIndex = projects.length - 1;
-    onSwitchProject(projects[nextIndex]);
-    setActiveCodeTab(0);
-  };
+  
 
   // Generate 2026 June dates list (simulated scheduler calendar dates)
   const weekdays = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
@@ -258,11 +217,11 @@ CERTIFICATIONS:
                       </div>
                       <div>
                         <label className="block text-xs font-semibold uppercase tracking-wider text-neutral-700 mb-1.5">
-                          Estimated Budget
+                          Opportunity
                         </label>
                         <select
                           id="contact-budget"
-                          value={contactForm.budget}
+                          value={contactForm.opportunity}
                           onChange={(e) => setContactForm({ ...contactForm, budget: e.target.value })}
                           className="w-full rounded-xl border border-neutral-200 px-4 py-3 text-sm text-neutral-900 focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500 transition-colors bg-neutral-25/50 font-sans"
                         >
@@ -325,7 +284,7 @@ CERTIFICATIONS:
                         <span>Project Track:</span> <span>{contactForm.projectType}</span>
                       </div>
                       <div className="flex justify-between py-1 border-b border-neutral-100">
-                        <span>Allocated Budget:</span> <span>{contactForm.budget}</span>
+                        <span>Opportunity:</span> <span>{contactForm.opportunity}</span>
                       </div>
                       <div className="flex justify-between py-1 pt-2">
                         <span>Status:</span> <span className="text-emerald-600 font-bold">QUEUED FOR REVIEW</span>
@@ -594,120 +553,13 @@ CERTIFICATIONS:
 )}
 
             {/* 4. Project Details Showroom */}
-            {type === 'project' && project && (
-              <div id="project-modal-content" className="space-y-8">
-
-                {/* Project Header Panel */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
-                  <div className="md:col-span-2">
-                    <h2 className="font-display font-black text-neutral-900 text-3xl tracking-tight leading-tight">
-                      {project.title}
-                    </h2>
-                    <p className="text-neutral-500 text-sm mt-2 leading-relaxed font-sans max-w-xl">
-                      {project.longDescription}
-                    </p>
-                  </div>
-                  <div className="bg-neutral-50 border border-neutral-150 rounded-xl p-4 space-y-3">
-                    <div className="text-[10px] font-mono uppercase tracking-wider font-bold text-neutral-400">
-                      Primary Tech Stack
-                    </div>
-                    <div className="flex flex-wrap gap-1.5">
-                      {project.techStack.map((tech, i) => (
-                        <span key={i} className="text-[10px] font-mono font-medium rounded-md bg-white border border-neutral-200 px-2.5 py-1 text-neutral-800 shadow-sm">
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Key Metrics Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                  {project.metrics.map((metric, i) => (
-                    <div key={i} className="border border-neutral-150 rounded-2xl p-4 bg-orange-50/10">
-                      <span className="block text-[10px] font-mono tracking-wider uppercase text-neutral-400 mb-1">
-                        {metric.label}
-                      </span>
-                      <strong className="font-display font-extrabold text-neutral-900 text-lg sm:text-xl font-sans">
-                        {metric.value}
-                      </strong>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Main section: Features & Code block */}
-                <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 font-sans">
-                  {/* Left: Core product features */}
-                  <div className="lg:col-span-2 space-y-4">
-                    <h4 className="font-display font-bold text-neutral-950 text-base flex items-center gap-2">
-                      <Sparkles className="h-4 w-4 text-orange-600" /> Product Milestones
-                    </h4>
-                    <ul className="space-y-4 text-xs text-neutral-600">
-                      {project.features.map((feature, idx) => (
-                        <li key={idx} className="flex gap-3 items-start leading-relaxed p-3.5 bg-neutral-25 rounded-xl border border-neutral-100">
-                          <div className="h-5 w-5 rounded-full bg-orange-50 text-orange-600 flex items-center justify-center shrink-0 text-[10px] font-bold">
-                            {idx + 1}
-                          </div>
-                          <span>{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {/* Right: Code Inspector */}
-                  <div className="lg:col-span-3 flex flex-col h-full min-h-[300px]">
-                    <div className="flex justify-between items-center bg-neutral-900 px-4 py-2 border-b border-neutral-850 rounded-t-xl">
-                      <div className="flex items-center gap-2">
-                        <Code2 className="h-3.5 w-3.5 text-orange-500" />
-                        <span className="text-[10px] font-mono text-neutral-300 font-bold tracking-tight">Code Inspector</span>
-                      </div>
-                      <div className="flex gap-1.5">
-                        {project.codeFiles.map((file, i) => (
-                          <button
-                            key={i}
-                            onClick={() => setActiveCodeTab(i)}
-                            className={`text-[10px] font-mono px-2 py-0.5 rounded cursor-pointer transition-colors ${i === activeCodeTab ? 'bg-[#FF6000] text-white font-bold' : 'text-neutral-400 hover:text-white'}`}
-                          >
-                            {file.name}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                    <div className="flex-1 bg-neutral-950 p-4 rounded-b-xl overflow-x-auto text-[11px] font-mono text-neutral-300 leading-relaxed border border-neutral-850 h-72">
-                      <pre className="text-left"><code>{project.codeFiles[activeCodeTab]?.snippet}</code></pre>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Modal Footer Controls / Carousel Navigation */}
-                <div className="flex justify-between items-center pt-6 border-t border-neutral-150 font-sans">
-                  <div className="flex gap-2">
-                    <button
-                      id="proj-nav-prev"
-                      onClick={() => navigateProject('prev')}
-                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-neutral-150 hover:bg-neutral-50 text-[10px] font-bold text-neutral-600 uppercase tracking-wider transition-colors cursor-pointer"
-                    >
-                      <ArrowLeft className="h-3.5 w-3.5" /> Prev
-                    </button>
-                    <button
-                      id="proj-nav-next"
-                      onClick={() => navigateProject('next')}
-                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-neutral-150 hover:bg-neutral-50 text-[10px] font-bold text-neutral-600 uppercase tracking-wider transition-colors cursor-pointer"
-                    >
-                      Next <ArrowRight className="h-3.5 w-3.5" />
-                    </button>
-                  </div>
-
-                  <button
-                    onClick={() => { onClose(); openContactModal(); }}
-                    className="flex items-center gap-1.5 rounded-xl bg-neutral-900 border border-neutral-900 hover:bg-neutral-850 hover:border-neutral-850 text-white font-display font-medium text-xs px-4 py-2 transition-colors cursor-pointer"
-                  >
-                    Discuss This Solution
-                  </button>
-                </div>
-
-              </div>
-            )}
+           {type === "project" && (
+    <ProjectModal
+        project={project}
+        isOpen={true}
+        onClose={onClose}
+    />
+)}
 
           </div>
         </motion.div>

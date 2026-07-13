@@ -55,7 +55,7 @@ export default function ProjectCard({ project, onOpenModal }) {
     {getStatus()}
   </div>
 
-  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition duration-300 flex items-center justify-center">
+  <div className="absolute inset-0 bg-black/0 pointer-events-none group-hover:bg-black/25 transition duration-300 flex items-center justify-center">
 
     <span className="opacity-0 group-hover:opacity-100 text-white font-semibold text-sm transition">
       🔍 Click to Preview
@@ -64,15 +64,12 @@ export default function ProjectCard({ project, onOpenModal }) {
   </div>
 
 </div>
-        <div className="absolute top-5 left-5">
-          {getStatus()}
-        </div>
 
       </div>
 
       {/* Content */}
 
-      <div className="p-7">
+      <div className="relative z-10 p-7">
 
         <span className="text-xs uppercase tracking-widest text-[#FF6000] font-bold">
           {project.category}

@@ -51,7 +51,7 @@ export default function Header({ onOpenModal, activeSection, onChangePage }) {
             onClick={() => handleNavigate('home')}
             className="flex items-center text-xl sm:text-2xl font-display font-black tracking-tighter text-neutral-900 cursor-pointer focus:outline-none"
           >
-            HARSHA<span className="text-[#FF6000]">.</span>K P
+             HARSHA<span className="text-[#FF6000]">.</span>K<span className="text-[#FF6000]">.</span>P
           </button>
 
           {/* Desktop Navigation */}
@@ -169,16 +169,16 @@ export default function Header({ onOpenModal, activeSection, onChangePage }) {
                   onClick={() => { setMobileMenuOpen(false); onOpenModal('contact'); }}
                   className="w-full flex items-center justify-center gap-2 rounded-xl bg-[#FF6000] text-white py-3.5 font-display font-bold text-xs tracking-wider uppercase cursor-pointer"
                 >
-                  Hire Me
+                  Let's Connect
                   <ArrowUpRight className="h-4 w-4" />
                 </button>
-                <button
+                {/* <button
                   id="mobile-drawer-schedule"
                   onClick={() => { setMobileMenuOpen(false); onOpenModal('schedule'); }}
                   className="w-full flex items-center justify-center gap-2 rounded-xl border border-neutral-200 bg-white text-neutral-700 py-3 font-display font-semibold text-xs cursor-pointer hover:bg-neutral-50"
                 >
                   Schedule Call
-                </button>
+                </button> */}
               </div>
 
             </motion.div>

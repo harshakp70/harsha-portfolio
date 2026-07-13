@@ -76,6 +76,7 @@ export default function App() {
             <ProjectsSection
               key="projects"
               projects={projects}
+              onOpenModal={(project) => handleOpenModal("project", project)}
             />
           )}
 
@@ -94,7 +95,7 @@ export default function App() {
 
           <div>
             <span className="text-lg font-display font-black tracking-tighter text-neutral-900 block mb-2 font-sans">
-              HARSHA<span className="text-[#FF6000]">.</span>K P
+              HARSHA<span className="text-[#FF6000]">.</span>K<span className="text-[#FF6000]">.</span>P
             </span>
             <p className="text-neutral-500 text-xs leading-relaxed max-w-sm font-sans">
               Architecting the future of web and mobile through React expertise.
@@ -111,9 +112,9 @@ export default function App() {
               <a href="#linkedin" className="hover:text-orange-600 flex items-center gap-1.5 transition-colors">
                 <Linkedin className="h-4 w-4" /> LinkedIn
               </a>
-              <a href="#twitter" className="hover:text-orange-600 flex items-center gap-1.5 transition-colors">
+              {/* <a href="#twitter" className="hover:text-orange-600 flex items-center gap-1.5 transition-colors">
                 <Twitter className="h-4 w-4" /> Twitter
-              </a>
+              </a> */}
             </div>
 
             <div className="text-[11px] text-neutral-400 md:text-right">

@@ -53,153 +53,235 @@ export const SERVICES = [
 
 export const projects = [
   {
-    id: 1,
-    title: "AI Resume Builder",
-    category: "Personal Project",
-    status: "In Development",
+  id: 1,
+  title: "AI Resume Builder",
 
-    image: "/projects/ai-resume-builder.jpg",
+  category: "Personal Project",
 
-    description:
-      "A modern AI-powered Resume Builder mobile application that helps users create professional ATS-friendly resumes with intelligent suggestions and a clean user experience.",
+  status: "In Development",
 
-    technologies: [
-      "React Native",
-      "Node.js",
-      "MongoDB",
-      "REST API",
-      "AI",
-    ],
+  image: "/projects/ai-resume-builder.jpg",
 
-    github: "",
+  description:
+    "An AI-powered mobile application that helps users create professional ATS-friendly resumes using modern templates and intelligent content generation.",
 
-    live: "",
+  overview:
+    "AI Resume Builder is a React Native application designed to simplify resume creation. Users can generate professional ATS-friendly resumes, preview them instantly and export them as PDF documents.",
 
-    features: [
-      "Authentication",
-      "AI Resume Generation",
-      "Resume Templates",
-      "PDF Export",
-      "ATS Friendly",
-    ],
+  technologies: [
+    "React Native",
+    "Node.js",
+    "MongoDB",
+    "REST API",
+    "Gemini AI",
+  ],
 
-    contribution:
-      "Designed and developed the application, implemented authentication, integrated APIs, and built a modern mobile UI."
-  },
+  github: "",
 
-  {
-    id: 2,
-    title: "Magnifier Web",
+  live: "",
 
-    category: "Professional Project",
+  responsibilities: [
+    "Designed and developed the mobile application.",
+    "Implemented user authentication.",
+    "Integrated AI-powered resume generation.",
+    "Built resume preview and PDF download.",
+    "Connected frontend with backend APIs.",
+  ],
 
-    status: "Private Organization",
+  features: [
+    "Authentication",
+    "AI Resume Generation",
+    "Resume Templates",
+    "PDF Export",
+    "ATS Friendly",
+  ],
 
-    image: "/projects/magnifierweb.png",
+  challenges:
+    "Designing an AI-assisted resume generation flow while ensuring the generated resumes remain ATS-friendly and visually appealing.",
 
-    description:
-      "A full-stack social media platform developed using the MERN Stack with user authentication, posts, admin panel, analytics and responsive UI.",
-
-    technologies: [
-      "React.js",
-      "Node.js",
-      "Express.js",
-      "MongoDB",
-      "Redux Toolkit",
-      "JWT",
-    ],
-
-    github: "",
-
-    live: "",
-
-    features: [
-      "Authentication",
-      "Admin Dashboard",
-      "Post Management",
-      "REST APIs",
-      "Analytics",
-    ],
-
-    contribution:
-      "Worked on frontend and backend development, API integration, authentication, bug fixing and feature implementation."
-  },
+  learnings: [
+    "AI Integration",
+    "React Native Architecture",
+    "PDF Generation",
+    "REST API Integration",
+    "Authentication",
+  ],
+},
 
   {
-    id: 3,
+  id: 2,
 
-    title: "Magnifier Mobile",
+  title: "Magnifier Web",
 
-    category: "Professional Project",
+  category: "Professional Project",
 
-    status: "Private Organization",
+  status: "Private Organization",
 
-    image: "/projects/magnifier-app.png",
+  image: "/projects/magnifierweb.png",
 
-    description:
-      "Cross-platform mobile application for the Magnifier platform. Initially developed using Expo and later migrated to React Native CLI based on project requirements.",
+  description:
+    "A MERN Stack social media platform with authentication, analytics, user management and admin dashboard.",
 
-    technologies: [
-      "React Native",
-      "Expo",
-      "React Native CLI",
-      "REST API",
-      "Async Storage",
-    ],
+  overview:
+    "Magnifier Web is a scalable social media platform that enables users to create posts, interact with content and manage profiles while providing administrators with analytics and moderation tools.",
 
-    github: "",
+  technologies: [
+    "React.js",
+    "Node.js",
+    "Express.js",
+    "MongoDB",
+    "Redux Toolkit",
+    "JWT",
+  ],
 
-    live: "",
+  github: "",
 
-    features: [
-      "Authentication",
-      "Profile",
-      "Posts",
-      "Notifications",
-      "API Integration",
-    ],
+  live: "",
 
-    contribution:
-      "Developed mobile screens, integrated APIs, fixed bugs and participated in migrating the project from Expo to React Native CLI."
-  },
+  responsibilities: [
+    "Developed responsive React.js interfaces.",
+    "Integrated frontend with REST APIs.",
+    "Worked on backend APIs using Express.js.",
+    "Implemented JWT authentication.",
+    "Performed MongoDB database operations.",
+    "Fixed production bugs and implemented new features.",
+  ],
+
+  features: [
+    "Authentication",
+    "Admin Dashboard",
+    "Analytics",
+    "Post Management",
+    "REST APIs",
+    "Responsive UI",
+  ],
+
+  challenges:
+    "Building reusable frontend components while integrating backend APIs efficiently for a smooth user experience.",
+
+  learnings: [
+    "REST APIs",
+    "JWT Authentication",
+    "Redux Toolkit",
+    "MongoDB",
+    "Team Collaboration",
+  ],
+},
 
   {
-    id: 4,
+  id: 3,
 
-    title: "Developer Portfolio",
+  title: "Magnifier Mobile",
 
-    category: "Personal Project",
+  category: "Professional Project",
 
-    status: "Live",
+  status: "Private Organization",
 
-    image: "/projects/portfolio.png",
+  image: "/projects/magnifier-app.png",
 
-    description:
-      "My personal portfolio built using React and Tailwind CSS to showcase my projects, skills, and professional experience.",
+  description:
+    "Cross-platform React Native application for the Magnifier platform with authentication, notifications and REST API integration.",
 
-    technologies: [
-      "React",
-      "Vite",
-      "Tailwind CSS",
-      "Motion",
-      "Vercel",
-    ],
+  overview:
+    "Magnifier Mobile provides users with the core functionality of the Magnifier platform through a native mobile experience built using React Native.",
 
-    github: "https://github.com/harshakp70/harsha-portfolio",
+  technologies: [
+    "React Native",
+    "Expo",
+    "React Native CLI",
+    "REST API",
+    "Async Storage",
+  ],
 
-    live: "https://harsha-portfolio-ivory-pi.vercel.app/",
+  github: "",
 
-    features: [
-      "Responsive Design",
-      "Dark UI",
-      "Modern Animations",
-      "Project Showcase",
-      "Resume Download",
-    ],
+  live: "",
 
-    contribution:
-      "Designed and developed the complete portfolio from scratch using React and Tailwind CSS."
-  },
+  responsibilities: [
+    "Developed mobile application screens.",
+    "Integrated REST APIs.",
+    "Implemented authentication.",
+    "Worked with React Navigation.",
+    "Migrated from Expo to React Native CLI.",
+    "Fixed bugs and improved performance.",
+  ],
+
+  features: [
+    "Authentication",
+    "User Profile",
+    "Posts",
+    "Notifications",
+    "REST API Integration",
+  ],
+
+  challenges:
+    "Migrating the application from Expo to React Native CLI while maintaining application stability.",
+
+  learnings: [
+    "React Native CLI",
+    "Navigation",
+    "Async Storage",
+    "API Integration",
+    "Performance Optimization",
+  ],
+},
+  {
+  id: 4,
+
+  title: "Developer Portfolio",
+
+  category: "Personal Project",
+
+  status: "Live",
+
+  image: "/projects/portfolio.png",
+
+  description:
+    "A modern React portfolio showcasing my projects, skills, professional experience and resume.",
+
+  overview:
+    "Designed and developed a responsive portfolio website to showcase my technical skills, featured projects, downloadable resume and contact information.",
+
+  technologies: [
+    "React",
+    "Vite",
+    "Tailwind CSS",
+    "Motion",
+    "Vercel",
+  ],
+
+  github: "https://github.com/harshakp70/harsha-portfolio",
+
+  live: "https://harsha-portfolio-ivory-pi.vercel.app/",
+
+  responsibilities: [
+    "Designed the complete UI/UX.",
+    "Developed reusable React components.",
+    "Integrated EmailJS contact form.",
+    "Implemented downloadable resume.",
+    "Added fullscreen project preview.",
+    "Deployed the project using Vercel.",
+  ],
+
+  features: [
+    "Responsive Design",
+    "Project Showcase",
+    "Resume Download",
+    "EmailJS Contact Form",
+    "Modern Animations",
+  ],
+
+  challenges:
+    "Building a professional portfolio that balances attractive design, performance and responsiveness across all devices.",
+
+  learnings: [
+    "Responsive Design",
+    "Motion Animations",
+    "Component Architecture",
+    "Deployment",
+    "UI/UX",
+  ],
+},
 ];
 
 
